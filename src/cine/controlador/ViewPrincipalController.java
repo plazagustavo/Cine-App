@@ -1,0 +1,112 @@
+package cine.controlador;
+
+import cine.modelo.Cine;
+import cine.modelo.Cliente;
+import cine.modelo.Sala;
+import cine.persistencia.PersistenciaDatos;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ListCell;
+import javafx.stage.Stage;
+import java.io.IOException;
+
+public class ViewPrincipalController {
+    @FXML
+    private Label clienteLabel;
+    @FXML
+    private ListView<Sala> salasListView;
+    
+    private Cine cine;
+    private Cliente cliente;
+    private Stage stage;
+    
+    public void setCine(Cine cine) {
+        this.cine = cine;
+        cargarSalas();
+    }
+    
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+        clienteLabel.setText("Bienvenido: " + cliente.getNombre());
+    }
+    
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+    
+    private void cargarSalas() {
+        salasListView.getItems().addAll(cine.getSalas());
+        salasListView.setCellFactory(param -> new ListCell<Sala>() {
+            @Override
+            protected void updateItem(Sala sala, boolean empty) {
+                super.updateItem(sala, empty);
+                if (empty || sala == null) {
+                    setText(null);
+                } else {
+                    setText(sala.toString());
+                }
+            }
+        });
+    }
+    
+    @FXML
+    private void btnComprar() {
+        Sala salaSeleccionada = salasListView.getSelectionModel().getSelectedItem();
+        if (salaSeleccionada == null) {
+            mostrarAlerta("Error", "Selecciona una sala primero");
+            return;
+        }
+        
+        abrirSeleccionButacas(salaSeleccionada);
+    }
+
+    
+    @FXML
+    private void btnSalir() {
+        try {
+            PersistenciaDatos.guardarCine(cine);
+            System.out.println("Datos del cine guardados.");
+        } catch (Exception e) {
+            System.err.println("Error al guardar los datos: " + e.getMessage());
+        } finally {
+            if (stage != null) {
+                stage.close();
+            }
+        }
+    }
+    
+    private void abrirSeleccionButacas(Sala sala) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/cine/vista/ViewButacas.fxml"));
+            Parent root = loader.load();
+            ViewButacasController controller = loader.getController();
+            
+            controller.setCine(cine);
+            controller.setCliente(cliente);
+            
+            Stage ventana = new Stage();
+            controller.setStage(ventana);
+            controller.setSala(sala); 
+            
+            ventana.setTitle("Seleccionar Butacas - " + sala.getPelicula());
+            ventana.setScene(new Scene(root, 800, 600));
+            ventana.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarAlerta("Error de Carga", "No se pudo abrir la ventana de butacas.");
+        }
+    }
+    
+    private void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+}
