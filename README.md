@@ -94,32 +94,6 @@ src/cine/
    - O presionar F6
 
 
-## 📚 Flujo de la Aplicación
-
-\`\`\`
-Inicio (Main.java)
-    ↓
-Cargar datos guardados (PersistenciaDatos)
-    ↓
-[ViewLogin] - Login/Registro
-    ├─ Registrarse: Nuevo usuario
-    └─ Iniciar sesión: Usuario existente
-    ↓
-[ViewPrincipal] - Seleccionar película/sala
-    ├─ Ver lista de salas disponibles
-    └─ Seleccionar sala para comprar entrada
-    ↓
-[ViewButacas] - Seleccionar asientos
-    ├─ Ver butacas disponibles
-    └─ Seleccionar butaca(s)
-    ↓
-[ViewConfirmacion] - Confirmar compra
-    ├─ Revisar detalles
-    └─ Confirmar o cancelar
-    ↓
-Guardar datos (PersistenciaDatos)
-\`\`\`
-
 
 ## 🎨 Interfaz Gráfica
 
