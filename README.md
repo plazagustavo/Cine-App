@@ -96,7 +96,7 @@ src/cine/
 
 ## 📚 Flujo de la Aplicación
 
-\`\`\`
+```
 Inicio (Main.java)
     ↓
 Cargar datos guardados (PersistenciaDatos)
@@ -118,7 +118,7 @@ Cargar datos guardados (PersistenciaDatos)
     └─ Confirmar o cancelar
     ↓
 Guardar datos (PersistenciaDatos)
-\`\`\`
+```
 
 
 ## 🎨 Interfaz Gráfica
