@@ -39,7 +39,7 @@ La aplicación utiliza una arquitectura **Modelo-Vista-Controlador (MVC)** con i
 
 ### Carpetas Principales
 
-\`\`\`
+```
 src/cine/
 ├── Main.java                          # Punto de entrada de la aplicación
 ├── modelo/                            # Clases del modelo de datos
@@ -62,7 +62,7 @@ src/cine/
 │   └── PersistenciaDatos.java         # Serialización de datos
 └── images/                            # Recursos de imagen
     └── login.jpg                      # Imagen de fondo del login
-\`\`\`
+```
 
 ## 📦 Requisitos Técnicos
 
@@ -93,6 +93,32 @@ src/cine/
    - Click derecho en el proyecto → Run
    - O presionar F6
 
+
+## 📚 Flujo de la Aplicación
+
+\`\`\`
+Inicio (Main.java)
+    ↓
+Cargar datos guardados (PersistenciaDatos)
+    ↓
+[ViewLogin] - Login/Registro
+    ├─ Registrarse: Nuevo usuario
+    └─ Iniciar sesión: Usuario existente
+    ↓
+[ViewPrincipal] - Seleccionar película/sala
+    ├─ Ver lista de salas disponibles
+    └─ Seleccionar sala para comprar entrada
+    ↓
+[ViewButacas] - Seleccionar asientos
+    ├─ Ver butacas disponibles
+    └─ Seleccionar butaca(s)
+    ↓
+[ViewConfirmacion] - Confirmar compra
+    ├─ Revisar detalles
+    └─ Confirmar o cancelar
+    ↓
+Guardar datos (PersistenciaDatos)
+\`\`\`
 
 
 ## 🎨 Interfaz Gráfica
