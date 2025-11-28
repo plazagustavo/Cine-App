@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ListCell;
 import javafx.stage.Stage;
 
 public class ViewPrincipalController {
@@ -32,15 +31,17 @@ public class ViewPrincipalController {
     
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
-        clienteLabel.setText("Bienvenido: " + cliente.getNombre());
+        clienteLabel.setText("Bienvenido: " + cliente.getEmail());
     }
     
     public void setStage(Stage stage) {
         this.stage = stage;
     }
     
+    // Recorre sobre todas las salas del cine
     private void cargarSalas() {
         // Agregar todas las salas a la lista
+        // Las agrega al ListView (con toString() que muestra butacas libres)
         for (int i = 0; i < cine.getSalas().size(); i++) {
             Sala sala = cine.getSalas().get(i);
             salasListView.getItems().add(sala);
@@ -49,6 +50,7 @@ public class ViewPrincipalController {
     
     @FXML
     private void btnComprar() {
+        // Obtiene la sala seleccionada
         Sala salaSeleccionada = salasListView.getSelectionModel().getSelectedItem();
         
         // Validar que se haya seleccionado una sala
@@ -64,13 +66,14 @@ public class ViewPrincipalController {
     private void btnSalir() {
         // Guardar los datos antes de salir
         PersistenciaDatos.guardarCine(cine);
-        
+        // Cierra la aplicación
         if (stage != null) {
             stage.close();
         }
     }
     
     private void abrirSeleccionButacas(Sala sala) {
+        // Carga ViewButacas.fxml
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/cine/vista/ViewButacas.fxml"));
@@ -85,9 +88,10 @@ public class ViewPrincipalController {
             ventana.setTitle("Seleccionar Butacas - " + sala.getPelicula());
             ventana.setScene(new Scene(root, 800, 600));
             
+            
             controlador.setStage(ventana);
             controlador.setSala(sala);
-            
+            // Muestra en pantalla
             ventana.show();
             
         } catch (Exception e) {

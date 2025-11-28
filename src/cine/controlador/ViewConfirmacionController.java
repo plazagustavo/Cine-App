@@ -44,6 +44,7 @@ public class ViewConfirmacionController {
     }
     
     public void setButacas(List<Butaca> butacas) {
+        // Guarda butacas
         this.butacasSeleccionadas = butacas;
         mostrarDatos();
     }
@@ -66,7 +67,7 @@ public class ViewConfirmacionController {
             }
         }
         
-        // Calcular el precio total
+        // Calcula precio: cantidad × 1000
         int cantidadButacas = butacasSeleccionadas.size();
         double precioTotal = cantidadButacas * PRECIO_BUTACA_UNITARIO;
         

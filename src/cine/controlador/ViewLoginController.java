@@ -14,9 +14,9 @@ import javafx.stage.Stage;
 public class ViewLoginController {
     
     @FXML
-    private TextField emailField;
+    private TextField txtEmail;
     @FXML
-    private PasswordField contraseñaField;
+    private PasswordField txtPassword;
     
     private Cine cine;
     private Stage stage;
@@ -31,10 +31,10 @@ public class ViewLoginController {
     
     @FXML
     private void btnLogin() {
-        String email = emailField.getText().trim();
-        String contraseña = contraseñaField.getText();
+        String email = txtEmail.getText().trim();
+        String contraseña = txtPassword.getText();
         
-        // Validar que los campos no estén vacíos
+        // Valida que email y contraseña no estén vacíos
         if (email.isEmpty() || contraseña.isEmpty()) {
             mostrarAlerta("Error", "Completa todos los campos");
             return;
@@ -43,18 +43,19 @@ public class ViewLoginController {
         // Validar login
         Cliente cliente = cine.validarLogin(email, contraseña);
         
+        // Si es correcto abrirPrincipal(cliente)
         if (cliente != null) {
             abrirPrincipal(cliente);
         } else {
             mostrarAlerta("Error", "Email o contraseña incorrectos");
-            contraseñaField.clear();
+            txtPassword.clear();
         }
     }
     
     @FXML
     private void btnRegistro() {
-        String email = emailField.getText().trim();
-        String contraseña = contraseñaField.getText();
+        String email = txtEmail.getText().trim();
+        String contraseña = txtPassword.getText();
         
         // Validar que los campos no estén vacíos
         if (email.isEmpty() || contraseña.isEmpty()) {
@@ -68,15 +69,15 @@ public class ViewLoginController {
             return;
         }
         
-        // Crear y registrar nuevo cliente
+        // Crea nuevo Cliente y lo registra con cine.registrarCliente()
         Cliente nuevoCliente = new Cliente("Cliente", email, contraseña);
         cine.registrarCliente(nuevoCliente);
         
         mostrarAlerta("Éxito", "Registrado correctamente");
         
         // Limpiar los campos
-        emailField.clear();
-        contraseñaField.clear();
+        txtEmail.clear();
+        txtPassword.clear();
     }
     
     private void abrirPrincipal(Cliente cliente) {

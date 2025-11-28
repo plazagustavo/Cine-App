@@ -43,6 +43,8 @@ public class Cine implements Serializable {
         return obtenerCliente(email) != null;
     }
     
+    // verifica si un usuario puede iniciar sesión.
+    // Si no coincide o no existe, devuelve null
     public Cliente validarLogin(String email, String contraseña) {
         Cliente cliente = obtenerCliente(email);
         if (cliente != null && cliente.getContraseña().equals(contraseña)) {

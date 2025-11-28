@@ -18,14 +18,14 @@ public class Main extends Application {
         // Intentar cargar el cine guardado
         Cine cine = PersistenciaDatos.cargarCine();
 
-        // Si no existe, crear uno nuevo
+        // Si no existe, crearCineInicial
         if (cine == null) {
             cine = crearCineInicial();
         }
 
         final Cine cineFinal = cine;
 
-        // Cargar el archivo viewLogin
+        // Muestra pantalla de login
         FXMLLoader loader = new FXMLLoader(getClass().getResource("vista/ViewLogin.fxml"));
         Parent root = loader.load();
 
@@ -46,10 +46,12 @@ public class Main extends Application {
         });
     }
     
+    
+    // creamos el cine con su nombre 
     private Cine crearCineInicial() {
         Cine cine = new Cine("Portal Cinemas");
         
-        // Crear las salas con sus películas
+        // Creamos las salas con sus películas
         cine.agregarSala(new Sala(1, "Avatar 3"));
         cine.agregarSala(new Sala(2, "Oppenheimer"));
         cine.agregarSala(new Sala(3, "Barbie"));

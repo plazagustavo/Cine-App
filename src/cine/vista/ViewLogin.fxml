@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <HBox alignment="CENTER" prefHeight="503.0" prefWidth="854.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cine.controlador.ViewLoginController">
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="427.0" HBox.hgrow="ALWAYS">
@@ -31,7 +30,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField fx:id="emailField" promptText="Ingresa tu email">
+                  <TextField fx:id="txtEmail" promptText="Ingresa tu email">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -44,7 +43,7 @@
                         <Insets top="15.0" />
                      </VBox.margin>
                   </Label>
-                  <PasswordField fx:id="contraseñaField" promptText="Ingresa tu contraseña">
+                  <PasswordField fx:id="txtPassword" promptText="Ingresa tu contraseña">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -57,7 +56,7 @@
                         <Insets top="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnRegistro" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnRegistro" text="Registrarse" style="-fx-background-color: #95E1D3;">
+                  <Button fx:id="btnRegistro" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnRegistro" style="-fx-background-color: #95E1D3;" text="Registrarse">
                      <font>
                         <Font size="20.0" />
                      </font>

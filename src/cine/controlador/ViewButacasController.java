@@ -55,19 +55,20 @@ public class ViewButacasController {
     }
     
     private void dibujarButacas() {
-        // Configurar espaciado y alineación del grid
+        // Configura espaciado del GridPane (gap: 10px)
         gridButacas.setHgap(10);
         gridButacas.setVgap(10);
         gridButacas.setAlignment(Pos.CENTER);
         
-        // matriz de butacas de la sala
+        // se obtiene matriz de butacas: butaca[][] = sala.getButacas()
         Butaca[][] butacas = sala.getButacas();
         
-        // Recorrer todas las filas
+        // Itera sobre todas las filas y columnas
         for (int i = 0; i < sala.getFilas(); i++) {
             // Recorrer todas las columnas
             for (int j = 0; j < sala.getColumnas(); j++) {
                 Butaca butaca = butacas[i][j];
+                // Para cada butaca: crearBoton(butaca)
                 Button btn = crearBoton(butaca);
                 
                 // Agregar el botón al grid en la posición (columna, fila)
@@ -77,18 +78,19 @@ public class ViewButacasController {
     }
     
     private Button crearBoton(Butaca butaca) {
-        // Crear botón con la ubicación de la butaca como texto
+        // Crea Button con texto = ubicación
         Button btn = new Button(butaca.getUbicacion());
         btn.setPrefSize(50, 50);
         
-        // Verificar si la butaca está ocupada
+        // Rojo si esta ocupado y se deshabilita
         if (butaca.isOcupada()) {
             btn.setStyle(OCUPADA);
             btn.setDisable(true);
+        // Verde si esta disponible
         } else {
             btn.setStyle(DISPONIBLE);
             
-            // Configurar acción cuando se hace clic en el botón
+            // Cuando cliqueamos un boton llama a seleccionar butaca
             btn.setOnAction(event -> {
                 seleccionarButaca(butaca, btn);
             });
@@ -98,7 +100,7 @@ public class ViewButacasController {
     }
     
     private void seleccionarButaca(Butaca butaca, Button btn) {
-        // Verificar si la butaca ya está seleccionada
+        // Verifica si ya está seleccionada
         boolean estaSeleccionada = false;
         
         for (int i = 0; i < butacasSeleccionadas.size(); i++) {
@@ -109,9 +111,12 @@ public class ViewButacasController {
         }
         
         // Si ya está seleccionada, deseleccionarla
+        // La elimina de la lista
         if (estaSeleccionada) {
             butacasSeleccionadas.remove(butaca);
             btn.setStyle(DISPONIBLE);
+        // si no esta seleccionada le cambia el color a azul 
+        // y la agrega a la lista
         } else {
             // Si no está seleccionada, seleccionarla
             butacasSeleccionadas.add(butaca);
@@ -121,23 +126,24 @@ public class ViewButacasController {
     
     @FXML
     private void btnComprar() {
-        // Valida que se haya seleccionado al menos una butaca
+        // Valida que haya butacas seleccionadas
         if (butacasSeleccionadas.isEmpty()) { 
             mostrarAlerta("Error", "Selecciona al menos una butaca");
             return;
         }
-        
+        // si selecciono abrirConfirmacion()
         abrirConfirmacion();
     }
     
     private void abrirConfirmacion() {
+        // Carga ViewConfirmacion.fxml
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/cine/vista/ViewConfirmacion.fxml"));
             Parent root = loader.load();
 
             ViewConfirmacionController controlador = loader.getController();
-            
+            // Informacion de cine, cliente, sala, butacasSeleccionadas
             controlador.setCine(cine);
             controlador.setCliente(cliente);
             controlador.setSala(sala);
@@ -161,6 +167,7 @@ public class ViewButacasController {
     }
     
     @FXML
+    // Cierra la ventana sin hacer nada
     private void btnCancelar() {
         stage.close();
     }
